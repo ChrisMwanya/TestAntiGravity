@@ -3,6 +3,7 @@ import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import Transaction from './transaction.js'
+import AccountType from './account_type.js'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -15,7 +16,7 @@ export default class Account extends BaseModel {
   declare name: string
 
   @column()
-  declare type: 'bank' | 'cash' | 'investment'
+  declare accountTypeId: number
 
   @column()
   declare balance: number
@@ -28,6 +29,9 @@ export default class Account extends BaseModel {
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
+
+  @belongsTo(() => AccountType)
+  declare accountType: BelongsTo<typeof AccountType>
 
   @hasMany(() => Transaction)
   declare transactions: HasMany<typeof Transaction>

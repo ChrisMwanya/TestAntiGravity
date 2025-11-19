@@ -9,7 +9,7 @@ export default class extends BaseSeeder {
       { name: 'Freelance', type: 'income' },
       { name: 'Investment Returns', type: 'income' },
       { name: 'Other Income', type: 'income' },
-      
+
       // Expense categories
       { name: 'Food & Dining', type: 'expense' },
       { name: 'Transportation', type: 'expense' },

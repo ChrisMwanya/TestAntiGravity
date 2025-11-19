@@ -38,17 +38,12 @@ export default class DashboardController {
       .sum('amount as total')
       .groupBy('type')
 
-    const income =
-      monthlyStats.find((s: any) => s.type === 'income')?.total || 0
-    const expenses =
-      monthlyStats.find((s: any) => s.type === 'expense')?.total || 0
+    const income = monthlyStats.find((s: any) => s.type === 'income')?.total || 0
+    const expenses = monthlyStats.find((s: any) => s.type === 'expense')?.total || 0
 
     // Get investments
     const investments = await Investment.query().where('user_id', user.id)
-    const totalInvestments = investments.reduce(
-      (sum, inv) => sum + Number(inv.currentValue),
-      0
-    )
+    const totalInvestments = investments.reduce((sum, inv) => sum + Number(inv.currentValue), 0)
 
     return view.render('pages/dashboard', {
       user,

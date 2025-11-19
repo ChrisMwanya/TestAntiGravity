@@ -1,0 +1,65 @@
+@layout.auth({ title: 'Vérification échouée - Finance Manager' })
+
+  @slot('main')
+    <div class="max-w-md w-full mx-4">
+      <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+        <div class="text-center mb-8">
+          <div class="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <h1 class="text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent mb-2">
+            Vérification échouée
+          </h1>
+          <p class="text-gray-400">
+            Le lien de vérification est invalide ou a expiré
+          </p>
+        </div>
+
+        @if(flashMessages.has('error'))
+          <div class="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-300">
+            {{ flashMessages.get('error') }}
+          </div>
+        @endif
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
+          <p class="text-gray-300 text-center mb-2">
+            Le lien de vérification que vous avez utilisé n'est pas valide ou a expiré.
+          </p>
+          <p class="text-gray-400 text-sm text-center">
+            Vous pouvez demander un nouveau lien de vérification ci-dessous.
+          </p>
+        </div>
+
+        <form action="{{ route('auth.verification.resend') }}" method="POST" class="space-y-4">
+          {{ csrfField() }}
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Votre email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              placeholder="john@example.com"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+          >
+            Renvoyer l'email de vérification
+          </button>
+        </form>
+
+        <p class="text-center text-gray-400 text-sm mt-6">
+          Besoin d'aide ? 
+          <a href="mailto:support@example.com" class="text-purple-400 hover:text-purple-300 transition">Contactez le support</a>
+        </p>
+      </div>
+    </div>
+  @endslot
+  
+@end

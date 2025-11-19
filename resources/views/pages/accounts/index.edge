@@ -1,67 +1,114 @@
 @layout.app({ title: 'Accounts' })
 
-@slot('main')
-  <div class="space-y-6">
-    <!-- Header -->
-    <div>
-      <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-        Accounts
-      </h1>
-      <p class="text-gray-400 mt-2">Manage your financial accounts</p>
-    </div>
+  @slot('main')
+    <div class="space-y-6">
+      <!-- Header -->
+      <div>
+        <h1
+          class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+        >
+          Accounts
+        </h1>
+        <p class="text-gray-400 mt-2">
+          Manage your financial accounts
+        </p>
+      </div>
 
-    <!-- Add Account Form -->
-    <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-      <h2 class="text-xl font-bold mb-4">Add New Account</h2>
-      <form action="/accounts" method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {{ csrfField() }}
-        <input type="text" name="name" required placeholder="Account name" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
-        <select name="type" required class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white">
-          <option value="">Select type</option>
-          <option value="bank">Bank Account</option>
-          <option value="cash">Cash</option>
-          <option value="investment">Investment Account</option>
-        </select>
-        <input type="number" name="balance" step="0.01" required placeholder="Initial balance" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
-        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium">
-          Add Account
+      <!-- Add Account Form -->
+      <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <h2 class="text-xl font-bold mb-4">
+          Add New Account
+        </h2>
+        <form action="/accounts" method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {{ csrfField() }}
+        <input
+            type="text"
+            name="name"
+            required
+            placeholder="Account name"
+            class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
+          />
+          <select
+            name="accountTypeId"
+            required
+            class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white"
+          >
+            <option value="">
+              Select type
+            </option>
+            @each(type in accountTypes)
+              <option value="{{ type.id }}">
+                {{ type.name }}
+              </option>
+            @endeach
+          </select>
+          <input
+            type="number"
+            name="balance"
+            step="0.01"
+            required
+            placeholder="Initial balance"
+            class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
+          />
+          <button
+            type="submit"
+            class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+          >
+            Add Account
         </button>
-      </form>
-    </div>
+        </form>
+      </div>
 
-    <!-- Accounts List -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      @each(account in accounts)
-        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-xl font-bold">{{ account.name }}</h3>
-              <p class="text-sm text-gray-400 capitalize">{{ account.type }}</p>
+      <!-- Accounts List -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @each(account in accounts)
+          <div
+            class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="text-xl font-bold">
+                  {{ account.name }}
+                </h3>
+                <p class="text-sm text-gray-400 capitalize">
+                  {{ account.accountType.name }}
+                </p>
+              </div>
+              <form action="/accounts/{{ account.id }}?_method=DELETE" method="POST" class="inline">
+                {{ csrfField() }}
+              <button
+                  type="submit"
+                  class="text-red-400 hover:text-red-300"
+                  onclick="return confirm('Delete this account? All transactions will be deleted.')"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </button>
+              </form>
             </div>
-            <form action="/accounts/{{ account.id }}?_method=DELETE" method="POST" class="inline">
-              {{ csrfField() }}
-              <button type="submit" class="text-red-400 hover:text-red-300" onclick="return confirm('Delete this account? All transactions will be deleted.')">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-            </form>
-          </div>
 
-          <div class="pt-4 border-t border-white/10">
-            <p class="text-gray-400 text-sm mb-1">Current Balance</p>
-            <p class="text-3xl font-bold {{ account.balance >= 0 ? 'text-green-400' : 'text-red-400' }}">
-              ${{ account.balance }}
-            </p>
+            <div class="pt-4 border-t border-white/10">
+              <p class="text-gray-400 text-sm mb-1">
+                Current Balance
+              </p>
+              <p class="text-3xl font-bold {{ account.balance >= 0 ? 'text-green-400' : 'text-red-400' }}">
+                ${{ account.balance }}
+              </p>
+            </div>
           </div>
-        </div>
-      @else
-        <div class="col-span-full text-center py-12 text-gray-400">
-          No accounts yet. Add your first account above!
-        </div>
-      @endeach
+        @else
+          <div class="col-span-full text-center py-12 text-gray-400">
+            No accounts yet. Add your first account above!
+          </div>
+        @endeach
+      </div>
     </div>
-  </div>
-@endslot
-
+  @endslot
+  
 @end

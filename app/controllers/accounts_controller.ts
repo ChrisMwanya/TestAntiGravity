@@ -1,24 +1,39 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Account from '#models/account'
+import AccountType from '#models/account_type'
 
 export default class AccountsController {
   async index({ auth, view }: HttpContext) {
     const user = auth.user!
-    const accounts = await Account.query().where('user_id', user.id)
 
-    return view.render('pages/accounts/index', { accounts })
+    // Load accounts with their types
+    const accounts = await user
+      .related('accounts')
+      .query()
+      .preload('accountType')
+      .orderBy('created_at', 'desc')
+
+    // Load available account types (system + user specific)
+    const accountTypes = await AccountType.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .orderBy('name', 'asc')
+
+    return view.render('pages/accounts/index', { accounts, accountTypes })
   }
 
-  async store({ auth, request, response }: HttpContext) {
+  async store({ auth, request, response, session }: HttpContext) {
     const user = auth.user!
-    const data = request.only(['name', 'type', 'balance'])
+    const data = request.only(['name', 'accountTypeId', 'balance'])
 
-    await Account.create({
-      userId: user.id,
-      ...data,
+    await user.related('accounts').create({
+      name: data.name,
+      accountTypeId: data.accountTypeId,
+      balance: data.balance,
     })
 
-    return response.redirect('/accounts')
+    session.flash('success', 'Account created successfully')
+    return response.redirect().back()
   }
 
   async destroy({ params, response }: HttpContext) {

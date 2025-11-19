@@ -15,6 +15,9 @@ const TransactionsController = () => import('#controllers/transactions_controlle
 const BudgetsController = () => import('#controllers/budgets_controller')
 const InvestmentsController = () => import('#controllers/investments_controller')
 const AccountsController = () => import('#controllers/accounts_controller')
+const AccountTypesController = () => import('#controllers/account_types_controller')
+const CategoriesController = () => import('#controllers/categories_controller')
+const ConfigurationController = () => import('#controllers/configuration_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ProfileController = () => import('#controllers/profile_controller')
 
@@ -27,6 +30,21 @@ router.post('/register', [AuthController, 'register']).as('auth.register')
 router.get('/login', [AuthController, 'showLogin']).as('auth.login.show')
 router.post('/login', [AuthController, 'login']).as('auth.login')
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
+
+// Email verification routes (public)
+router.get('/verify/:token', [AuthController, 'verify']).as('auth.verify')
+router
+  .get('/verification/pending', [AuthController, 'showVerificationPending'])
+  .as('auth.verification.pending')
+router
+  .get('/verification/success', [AuthController, 'showVerificationSuccess'])
+  .as('auth.verification.success')
+router
+  .get('/verification/failed', [AuthController, 'showVerificationFailed'])
+  .as('auth.verification.failed')
+router
+  .post('/verification/resend', [AuthController, 'resendVerification'])
+  .as('auth.verification.resend')
 
 // Auth routes
 router
@@ -60,10 +78,28 @@ router
     router.post('/accounts', [AccountsController, 'store']).as('accounts.store')
     router.delete('/accounts/:id', [AccountsController, 'destroy']).as('accounts.destroy')
 
+    // Account Types
+    router.get('/account-types', [AccountTypesController, 'index']).as('account_types.index')
+    router.post('/account-types', [AccountTypesController, 'store']).as('account_types.store')
+    router
+      .delete('/account-types/:id', [AccountTypesController, 'destroy'])
+      .as('account_types.destroy')
+
+    // Categories
+    router.get('/categories', [CategoriesController, 'index']).as('categories.index')
+    router.post('/categories', [CategoriesController, 'store']).as('categories.store')
+    router.delete('/categories/:id', [CategoriesController, 'destroy']).as('categories.destroy')
+
     // Profile
     router.get('/profile', [ProfileController, 'index']).as('profile.index')
     router.post('/profile', [ProfileController, 'update']).as('profile.update')
     router.post('/profile/avatar', [ProfileController, 'uploadAvatar']).as('profile.avatar.upload')
-    router.delete('/profile/avatar', [ProfileController, 'deleteAvatar']).as('profile.avatar.delete')
+    router
+      .delete('/profile/avatar', [ProfileController, 'deleteAvatar'])
+      .as('profile.avatar.delete')
+
+    // Configuration
+    router.get('/configuration', [ConfigurationController, 'index']).as('configuration.index')
   })
   .use(middleware.auth())
+  .use(middleware.verified())

@@ -16,7 +16,10 @@ export default class TransactionsController {
       .preload('category')
       .orderBy('date', 'desc')
 
-    const categories = await Category.all()
+    const categories = await Category.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .orderBy('name', 'asc')
 
     return view.render('pages/transactions/index', {
       transactions,
@@ -25,9 +28,17 @@ export default class TransactionsController {
     })
   }
 
-  async create({ view }: HttpContext) {
-    const accounts = await Account.all()
-    const categories = await Category.all()
+  async create({ auth, view }: HttpContext) {
+    const user = auth.user!
+    const accounts = await user
+      .related('accounts')
+      .query()
+      .preload('accountType')
+      .orderBy('name', 'asc')
+    const categories = await Category.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .orderBy('name', 'asc')
     return view.render('pages/transactions/create', { accounts, categories })
   }
 

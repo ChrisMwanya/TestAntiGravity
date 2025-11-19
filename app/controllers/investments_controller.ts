@@ -21,10 +21,7 @@ export default class InvestmentsController {
     // Calculate total income for percentage calculation
     const accounts = await Account.query().where('user_id', user.id)
     const totalBalance = accounts.reduce((sum, account) => sum + Number(account.balance), 0)
-    const totalInvestmentValue = investments.reduce(
-      (sum, inv) => sum + Number(inv.currentValue),
-      0
-    )
+    const totalInvestmentValue = investments.reduce((sum, inv) => sum + Number(inv.currentValue), 0)
     const investmentPercentage = totalBalance > 0 ? (totalInvestmentValue / totalBalance) * 100 : 0
 
     return view.render('pages/investments/index', {
