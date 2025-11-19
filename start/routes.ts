@@ -17,6 +17,7 @@ const InvestmentsController = () => import('#controllers/investments_controller'
 const AccountsController = () => import('#controllers/accounts_controller')
 const AccountTypesController = () => import('#controllers/account_types_controller')
 const CategoriesController = () => import('#controllers/categories_controller')
+const ConfigurationController = () => import('#controllers/configuration_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ProfileController = () => import('#controllers/profile_controller')
 
@@ -65,7 +66,9 @@ router
     // Account Types
     router.get('/account-types', [AccountTypesController, 'index']).as('account_types.index')
     router.post('/account-types', [AccountTypesController, 'store']).as('account_types.store')
-    router.delete('/account-types/:id', [AccountTypesController, 'destroy']).as('account_types.destroy')
+    router
+      .delete('/account-types/:id', [AccountTypesController, 'destroy'])
+      .as('account_types.destroy')
 
     // Categories
     router.get('/categories', [CategoriesController, 'index']).as('categories.index')
@@ -76,6 +79,11 @@ router
     router.get('/profile', [ProfileController, 'index']).as('profile.index')
     router.post('/profile', [ProfileController, 'update']).as('profile.update')
     router.post('/profile/avatar', [ProfileController, 'uploadAvatar']).as('profile.avatar.upload')
-    router.delete('/profile/avatar', [ProfileController, 'deleteAvatar']).as('profile.avatar.delete')
+    router
+      .delete('/profile/avatar', [ProfileController, 'deleteAvatar'])
+      .as('profile.avatar.delete')
+
+    // Configuration
+    router.get('/configuration', [ConfigurationController, 'index']).as('configuration.index')
   })
   .use(middleware.auth())

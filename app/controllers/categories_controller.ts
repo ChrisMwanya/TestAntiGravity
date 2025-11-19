@@ -4,7 +4,7 @@ import Category from '#models/category'
 export default class CategoriesController {
   async index({ auth, view }: HttpContext) {
     const user = auth.user!
-    
+
     // Get system defaults (userId is null) and user's custom categories
     const categories = await Category.query()
       .whereNull('user_id')
@@ -35,11 +35,18 @@ export default class CategoriesController {
       .firstOrFail()
 
     // Check if used by any transaction or budget
-    const transactionsCount = await category.related('transactions').query().count('* as total').first()
+    const transactionsCount = await category
+      .related('transactions')
+      .query()
+      .count('* as total')
+      .first()
     const budgetsCount = await category.related('budgets').query().count('* as total').first()
-    
+
     if (transactionsCount?.$extras.total > 0 || budgetsCount?.$extras.total > 0) {
-      session.flash('error', 'Cannot delete this category as it is used by existing transactions or budgets')
+      session.flash(
+        'error',
+        'Cannot delete this category as it is used by existing transactions or budgets'
+      )
       return response.redirect().back()
     }
 

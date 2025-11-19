@@ -30,7 +30,11 @@ export default class TransactionsController {
 
   async create({ auth, view }: HttpContext) {
     const user = auth.user!
-    const accounts = await user.related('accounts').query().preload('accountType').orderBy('name', 'asc')
+    const accounts = await user
+      .related('accounts')
+      .query()
+      .preload('accountType')
+      .orderBy('name', 'asc')
     const categories = await Category.query()
       .whereNull('user_id')
       .orWhere('user_id', user.id)

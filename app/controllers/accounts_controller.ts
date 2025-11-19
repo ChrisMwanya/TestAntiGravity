@@ -5,7 +5,7 @@ import AccountType from '#models/account_type'
 export default class AccountsController {
   async index({ auth, view }: HttpContext) {
     const user = auth.user!
-    
+
     // Load accounts with their types
     const accounts = await user
       .related('accounts')
