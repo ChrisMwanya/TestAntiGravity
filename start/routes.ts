@@ -15,6 +15,8 @@ const TransactionsController = () => import('#controllers/transactions_controlle
 const BudgetsController = () => import('#controllers/budgets_controller')
 const InvestmentsController = () => import('#controllers/investments_controller')
 const AccountsController = () => import('#controllers/accounts_controller')
+const AccountTypesController = () => import('#controllers/account_types_controller')
+const CategoriesController = () => import('#controllers/categories_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ProfileController = () => import('#controllers/profile_controller')
 
@@ -59,6 +61,16 @@ router
     router.get('/accounts', [AccountsController, 'index']).as('accounts.index')
     router.post('/accounts', [AccountsController, 'store']).as('accounts.store')
     router.delete('/accounts/:id', [AccountsController, 'destroy']).as('accounts.destroy')
+
+    // Account Types
+    router.get('/account-types', [AccountTypesController, 'index']).as('account_types.index')
+    router.post('/account-types', [AccountTypesController, 'store']).as('account_types.store')
+    router.delete('/account-types/:id', [AccountTypesController, 'destroy']).as('account_types.destroy')
+
+    // Categories
+    router.get('/categories', [CategoriesController, 'index']).as('categories.index')
+    router.post('/categories', [CategoriesController, 'store']).as('categories.store')
+    router.delete('/categories/:id', [CategoriesController, 'destroy']).as('categories.destroy')
 
     // Profile
     router.get('/profile', [ProfileController, 'index']).as('profile.index')

@@ -35,7 +35,10 @@ export default class BudgetsController {
       })
     )
 
-    const categories = await Category.query().where('type', 'expense')
+    const categories = await Category.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .orderBy('name', 'asc')
 
     return view.render('pages/budgets/index', {
       budgets: budgetsWithSpending,

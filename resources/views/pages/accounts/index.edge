@@ -16,11 +16,11 @@
       <form action="/accounts" method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4">
         {{ csrfField() }}
         <input type="text" name="name" required placeholder="Account name" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
-        <select name="type" required class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white">
+        <select name="accountTypeId" required class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white">
           <option value="">Select type</option>
-          <option value="bank">Bank Account</option>
-          <option value="cash">Cash</option>
-          <option value="investment">Investment Account</option>
+          @each(type in accountTypes)
+            <option value="{{ type.id }}">{{ type.name }}</option>
+          @endeach
         </select>
         <input type="number" name="balance" step="0.01" required placeholder="Initial balance" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
         <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium">
@@ -36,7 +36,7 @@
           <div class="flex justify-between items-start mb-4">
             <div>
               <h3 class="text-xl font-bold">{{ account.name }}</h3>
-              <p class="text-sm text-gray-400 capitalize">{{ account.type }}</p>
+              <p class="text-sm text-gray-400 capitalize">{{ account.accountType.name }}</p>
             </div>
             <form action="/accounts/{{ account.id }}?_method=DELETE" method="POST" class="inline">
               {{ csrfField() }}
