@@ -31,6 +31,21 @@ router.get('/login', [AuthController, 'showLogin']).as('auth.login.show')
 router.post('/login', [AuthController, 'login']).as('auth.login')
 router.post('/logout', [AuthController, 'logout']).as('auth.logout')
 
+// Email verification routes (public)
+router.get('/verify/:token', [AuthController, 'verify']).as('auth.verify')
+router
+  .get('/verification/pending', [AuthController, 'showVerificationPending'])
+  .as('auth.verification.pending')
+router
+  .get('/verification/success', [AuthController, 'showVerificationSuccess'])
+  .as('auth.verification.success')
+router
+  .get('/verification/failed', [AuthController, 'showVerificationFailed'])
+  .as('auth.verification.failed')
+router
+  .post('/verification/resend', [AuthController, 'resendVerification'])
+  .as('auth.verification.resend')
+
 // Auth routes
 router
   .group(() => {
@@ -87,3 +102,4 @@ router
     router.get('/configuration', [ConfigurationController, 'index']).as('configuration.index')
   })
   .use(middleware.auth())
+  .use(middleware.verified())

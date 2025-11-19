@@ -1,99 +1,153 @@
 @layout.app({ title: 'Manage Categories' })
 
-@slot('main')
-  <div class="space-y-8">
-    <div class="flex justify-between items-center">
-      <div>
-        <h1 class="text-3xl font-bold mb-2">Categories</h1>
-        <p class="text-slate-400">Manage your transaction categories</p>
+  @slot('main')
+    <div class="space-y-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold mb-2">
+            Categories
+          </h1>
+          <p class="text-slate-400">
+            Manage your transaction categories
+          </p>
+        </div>
       </div>
-    </div>
 
-    <!-- Create Category Form -->
-    <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-      <h2 class="text-xl font-bold mb-4">Add New Category</h2>
-      <form action="{{ route('categories.store') }}" method="POST" class="flex gap-4 items-end">
-        {{ csrfField() }}
-        
-        <div class="flex-1">
-          <label class="block text-sm font-medium mb-2">Name</label>
-          <input type="text" name="name" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none" placeholder="e.g., Freelance, Hobbies">
-        </div>
+      <!-- Create Category Form -->
+      <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <h2 class="text-xl font-bold mb-4">
+          Add New Category
+        </h2>
+        <form action="{{ route('categories.store') }}" method="POST" class="flex gap-4 items-end">
+          {{ csrfField() }}
+          <div class="flex-1">
+            <label class="block text-sm font-medium mb-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              placeholder="e.g., Freelance, Hobbies"
+            />
+          </div>
 
-        <div class="w-48">
-          <label class="block text-sm font-medium mb-2">Type</label>
-          <select name="type" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white">
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-          </select>
-        </div>
+          <div class="w-48">
+            <label class="block text-sm font-medium mb-2">Type</label>
+            <select
+              name="type"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
+            >
+              <option value="expense">
+                Expense
+              </option>
+              <option value="income">
+                Income
+              </option>
+            </select>
+          </div>
 
-        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium">
-          Add Category
+          <button
+            type="submit"
+            class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+          >
+            Add Category
         </button>
-      </form>
-    </div>
-
-    <!-- Categories List -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Income Categories -->
-      <div class="space-y-4">
-        <h3 class="text-xl font-bold text-green-400">Income Categories</h3>
-        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
-          @each(category in categories.filter(c => c.type === 'income'))
-            <div class="p-4 border-b border-white/10 last:border-0 flex justify-between items-center hover:bg-white/5 transition">
-              <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 rounded-full {{ category.userId ? 'bg-purple-400' : 'bg-slate-400' }}"></div>
-                <span class="font-medium">{{ category.name }}</span>
-                @if(!category.userId)
-                  <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">System</span>
-                @endif
-              </div>
-              
-              @if(category.userId)
-                <form action="{{ route('categories.destroy', { id: category.id }) }}?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure? This cannot be undone.')">
-                  {{ csrfField() }}
-                  <button type="submit" class="text-red-400 hover:text-red-300 transition p-2 hover:bg-red-400/10 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </form>
-              @endif
-            </div>
-          @endeach
-        </div>
+        </form>
       </div>
 
-      <!-- Expense Categories -->
-      <div class="space-y-4">
-        <h3 class="text-xl font-bold text-red-400">Expense Categories</h3>
-        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
-          @each(category in categories.filter(c => c.type === 'expense'))
-            <div class="p-4 border-b border-white/10 last:border-0 flex justify-between items-center hover:bg-white/5 transition">
-              <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 rounded-full {{ category.userId ? 'bg-purple-400' : 'bg-slate-400' }}"></div>
-                <span class="font-medium">{{ category.name }}</span>
-                @if(!category.userId)
-                  <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">System</span>
+      <!-- Categories List -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Income Categories -->
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-green-400">
+            Income Categories
+          </h3>
+          <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
+            @each(category in categories.filter(c => c.type === 'income'))
+              <div
+                class="p-4 border-b border-white/10 last:border-0 flex justify-between items-center hover:bg-white/5 transition"
+              >
+                <div class="flex items-center space-x-3">
+                  <div class="w-2 h-2 rounded-full {{ category.userId ? 'bg-purple-400' : 'bg-slate-400' }}">
+                  </div>
+                  <span class="font-medium">{{ category.name }}</span>
+                  @if(!category.userId)
+                    <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">System</span>
+                  @endif
+                </div>
+
+                @if(category.userId)
+                  <form
+                    action="{{ route('categories.destroy', { id: category.id }) }}?_method=DELETE"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure? This cannot be undone.')"
+                  >
+                    {{ csrfField() }}
+                  <button
+                      type="submit"
+                      class="text-red-400 hover:text-red-300 transition p-2 hover:bg-red-400/10 rounded-lg"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fill-rule="evenodd"
+                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </form>
                 @endif
               </div>
-              
-              @if(category.userId)
-                <form action="{{ route('categories.destroy', { id: category.id }) }}?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure? This cannot be undone.')">
-                  {{ csrfField() }}
-                  <button type="submit" class="text-red-400 hover:text-red-300 transition p-2 hover:bg-red-400/10 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                  </button>
-                </form>
-              @endif
-            </div>
-          @endeach
+            @endeach
+          </div>
+        </div>
+
+        <!-- Expense Categories -->
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-red-400">
+            Expense Categories
+          </h3>
+          <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
+            @each(category in categories.filter(c => c.type === 'expense'))
+              <div
+                class="p-4 border-b border-white/10 last:border-0 flex justify-between items-center hover:bg-white/5 transition"
+              >
+                <div class="flex items-center space-x-3">
+                  <div class="w-2 h-2 rounded-full {{ category.userId ? 'bg-purple-400' : 'bg-slate-400' }}">
+                  </div>
+                  <span class="font-medium">{{ category.name }}</span>
+                  @if(!category.userId)
+                    <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">System</span>
+                  @endif
+                </div>
+
+                @if(category.userId)
+                  <form
+                    action="{{ route('categories.destroy', { id: category.id }) }}?_method=DELETE"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure? This cannot be undone.')"
+                  >
+                    {{ csrfField() }}
+                  <button
+                      type="submit"
+                      class="text-red-400 hover:text-red-300 transition p-2 hover:bg-red-400/10 rounded-lg"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fill-rule="evenodd"
+                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                @endif
+              </div>
+            @endeach
+          </div>
         </div>
       </div>
     </div>
-  </div>
-@endslot
+  @endslot
 @end

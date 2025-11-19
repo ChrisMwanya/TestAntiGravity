@@ -1,44 +1,75 @@
 @layout.auth({ title: 'Register - Finance Manager' })
 
-@slot('main')
-  <div class="max-w-md w-full mx-4">
-    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-          FinanceApp
-        </h1>
-        <p class="text-gray-400">Create your account</p>
-      </div>
-
-      <form action="/register" method="POST" class="space-y-4">        
-        {{ csrfField() }}
-        <div>
-          <label class="block text-sm font-medium mb-2">Full Name</label>
-          <input type="text" name="fullName" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none" placeholder="John Doe">
+  @slot('main')
+    <div class="max-w-md w-full mx-4">
+      <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+        <div class="text-center mb-8">
+          <h1
+            class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2"
+          >
+            FinanceApp
+          </h1>
+          <p class="text-gray-400">
+            Create your account
+          </p>
         </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-2">Email</label>
-          <input type="email" name="email" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none" placeholder="john@example.com">
-        </div>
+        <form action="/register" method="POST" class="space-y-4">
+          {{ csrfField() }}
+          <div>
+            <label class="block text-sm font-medium mb-2">Full Name</label>
+            <input
+              type="text"
+              name="fullName"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              placeholder="John Doe"
+            />
+          </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-2">Password</label>
-          <input type="password" name="password" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none" placeholder="••••••••">
-        </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              placeholder="john@example.com"
+            />
+          </div>
 
-        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium">
-          Create Account
+          <div class="bg-blue-500/20 border border-blue-500/50 rounded-xl p-3">
+            <p class="text-blue-300 text-sm text-center">
+              📧 Un email de vérification sera envoyé après l'inscription
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Password</label>
+            <input
+              type="password"
+              name="password"
+              required
+              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+          >
+            Create Account
         </button>
 
-        <p class="text-center text-gray-400 text-sm">
-          Already have an account? 
+          <p class="text-center text-gray-400 text-sm">
+            Already have an account? 
           <a href="/login" class="text-purple-400 hover:text-purple-300 transition">Login here</a>
-        </p>
-      </form>
+          </p>
+        </form>
+      </div>
     </div>
-  </div>
-@endslot
-
+  @endslot
+  
 @end
 

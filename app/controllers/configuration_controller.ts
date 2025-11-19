@@ -13,7 +13,7 @@ export default class ConfigurationController {
       .query()
       .preload('accountType')
       .orderBy('name', 'asc')
-    
+
     const accountTypes = await AccountType.query()
       .whereNull('user_id')
       .orWhere('user_id', user.id)

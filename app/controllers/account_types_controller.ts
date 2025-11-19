@@ -4,7 +4,7 @@ import AccountType from '#models/account_type'
 export default class AccountTypesController {
   async index({ auth, view }: HttpContext) {
     const user = auth.user!
-    
+
     // Get system defaults (userId is null) and user's custom types
     const types = await AccountType.query()
       .whereNull('user_id')
@@ -33,7 +33,7 @@ export default class AccountTypesController {
 
     // Check if used by any account
     const accountsCount = await type.related('accounts').query().count('* as total').first()
-    
+
     if (accountsCount?.$extras.total > 0) {
       session.flash('error', 'Cannot delete this type as it is used by existing accounts')
       return response.redirect().back()
