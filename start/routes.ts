@@ -16,6 +16,7 @@ const BudgetsController = () => import('#controllers/budgets_controller')
 const InvestmentsController = () => import('#controllers/investments_controller')
 const AccountsController = () => import('#controllers/accounts_controller')
 const AuthController = () => import('#controllers/auth_controller')
+const ProfileController = () => import('#controllers/profile_controller')
 
 // Public routes
 router.on('/').render('pages/home')
@@ -58,5 +59,11 @@ router
     router.get('/accounts', [AccountsController, 'index']).as('accounts.index')
     router.post('/accounts', [AccountsController, 'store']).as('accounts.store')
     router.delete('/accounts/:id', [AccountsController, 'destroy']).as('accounts.destroy')
+
+    // Profile
+    router.get('/profile', [ProfileController, 'index']).as('profile.index')
+    router.post('/profile', [ProfileController, 'update']).as('profile.update')
+    router.post('/profile/avatar', [ProfileController, 'uploadAvatar']).as('profile.avatar.upload')
+    router.delete('/profile/avatar', [ProfileController, 'deleteAvatar']).as('profile.avatar.delete')
   })
   .use(middleware.auth())
