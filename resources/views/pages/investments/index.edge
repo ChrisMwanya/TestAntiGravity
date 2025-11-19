@@ -1,0 +1,106 @@
+@layout.app({ title: 'Investments' })
+
+@slot('main')
+  <div class="space-y-6">
+    <!-- Header -->
+    <div>
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+        Investment Portfolio
+      </h1>
+      <p class="text-gray-400 mt-2">Track your investments and returns</p>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <p class="text-gray-400 text-sm">Total Investment Value</p>
+        <h3 class="text-4xl font-bold mt-2">${{ totalInvestmentValue.toFixed(2) }}</h3>
+      </div>
+      <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <p class="text-gray-400 text-sm">Investment Percentage</p>
+        <h3 class="text-4xl font-bold mt-2">{{ investmentPercentage.toFixed(1) }}%</h3>
+        <p class="text-sm text-gray-400 mt-1">of total balance</p>
+      </div>
+    </div>
+
+    <!-- Add Investment Form -->
+    <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+      <h2 class="text-xl font-bold mb-4">Add New Investment</h2>
+      <form action="/investments" method="POST" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        {{ csrfField() }}
+        <input type="text" name="name" required placeholder="Investment name" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
+        <input type="number" name="initialValue" step="0.01" required placeholder="Initial value" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
+        <input type="number" name="currentValue" step="0.01" required placeholder="Current value" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
+        <input type="text" name="type" placeholder="Type (optional)" class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
+        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium">
+          Add Investment
+        </button>
+      </form>
+    </div>
+
+    <!-- Investments List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @each(investment in investments)
+        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-bold">{{ investment.name }}</h3>
+              @if(investment.type)
+                <p class="text-sm text-gray-400">{{ investment.type }}</p>
+              @endif
+            </div>
+            <form action="/investments/{{ investment.id }}?_method=DELETE" method="POST" class="inline">
+              {{ csrfField() }}
+              <button type="submit" class="text-red-400 hover:text-red-300" onclick="return confirm('Delete this investment?')">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-400 text-sm">Current Value</span>
+              <span class="font-bold text-lg">${{ investment.currentValue }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400 text-sm">Initial Value</span>
+              <span class="text-sm">${{ investment.initialValue }}</span>
+            </div>
+            <div class="pt-3 border-t border-white/10">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Gain/Loss</span>
+                <div class="text-right">
+                  <p class="font-bold {{ investment.gain >= 0 ? 'text-green-400' : 'text-red-400' }}">
+                    {{ investment.gain >= 0 ? '+' : '' }}${{ investment.gain.toFixed(2) }}
+                  </p>
+                  <p class="text-sm {{ investment.gainPercentage >= 0 ? 'text-green-400' : 'text-red-400' }}">
+                    {{ investment.gainPercentage >= 0 ? '+' : '' }}{{ investment.gainPercentage.toFixed(2) }}%
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Update Value Form -->
+            <form action="/investments/{{ investment.id }}?_method=PUT" method="POST" class="pt-3 border-t border-white/10">
+              {{ csrfField() }}
+              <div class="flex space-x-2">
+                <input type="number" name="currentValue" step="0.01" placeholder="Update value" class="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 outline-none">
+                <button type="submit" class="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg text-sm transition">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      @else
+        <div class="col-span-full text-center py-12 text-gray-400">
+          No investments yet. Add your first investment above!
+        </div>
+      @endeach
+    </div>
+  </div>
+@endslot
+
+@end
