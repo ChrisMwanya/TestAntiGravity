@@ -18,6 +18,8 @@ const AccountsController = () => import('#controllers/accounts_controller')
 const AccountTypesController = () => import('#controllers/account_types_controller')
 const CategoriesController = () => import('#controllers/categories_controller')
 const ConfigurationController = () => import('#controllers/configuration_controller')
+const DebtsController = () => import('#controllers/debts_controller')
+const FixedChargesController = () => import('#controllers/fixed_charges_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ProfileController = () => import('#controllers/profile_controller')
 
@@ -83,6 +85,7 @@ router
     // Account Types
     router.get('/account-types', [AccountTypesController, 'index']).as('account_types.index')
     router.post('/account-types', [AccountTypesController, 'store']).as('account_types.store')
+    router.put('/account-types/:id', [AccountTypesController, 'update']).as('account_types.update')
     router
       .delete('/account-types/:id', [AccountTypesController, 'destroy'])
       .as('account_types.destroy')
@@ -99,6 +102,18 @@ router
     router
       .delete('/profile/avatar', [ProfileController, 'deleteAvatar'])
       .as('profile.avatar.delete')
+
+    // Debts
+    router.get('/debts', [DebtsController, 'index']).as('debts.index')
+    router.post('/debts', [DebtsController, 'store']).as('debts.store')
+    router.put('/debts/:id/pay', [DebtsController, 'pay']).as('debts.pay')
+    router.delete('/debts/:id', [DebtsController, 'destroy']).as('debts.destroy')
+
+    // Fixed Charges
+    router.get('/fixed-charges', [FixedChargesController, 'index']).as('fixed_charges.index')
+    router.post('/fixed-charges', [FixedChargesController, 'store']).as('fixed_charges.store')
+    router.patch('/fixed-charges/:id/toggle', [FixedChargesController, 'toggle']).as('fixed_charges.toggle')
+    router.delete('/fixed-charges/:id', [FixedChargesController, 'destroy']).as('fixed_charges.destroy')
 
     // Configuration
     router.get('/configuration', [ConfigurationController, 'index']).as('configuration.index')

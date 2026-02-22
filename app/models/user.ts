@@ -9,6 +9,8 @@ import Budget from './budget.js'
 import Investment from './investment.js'
 import AccountType from './account_type.js'
 import Category from './category.js'
+import Debt from './debt.js'
+import FixedCharge from './fixed_charge.js'
 import string from '@adonisjs/core/helpers/string'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -58,6 +60,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => Category)
   declare categories: HasMany<typeof Category>
+
+  @hasMany(() => Debt)
+  declare debts: HasMany<typeof Debt>
+
+  @hasMany(() => FixedCharge)
+  declare fixedCharges: HasMany<typeof FixedCharge>
 
   /**
    * Generate a unique verification token for the user

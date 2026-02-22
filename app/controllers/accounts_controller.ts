@@ -28,8 +28,8 @@ export default class AccountsController {
 
     await user.related('accounts').create({
       name: data.name,
-      accountTypeId: data.accountTypeId,
-      balance: data.balance,
+      accountTypeId: Number(data.accountTypeId),
+      balance: Number(data.balance),
     })
 
     session.flash('success', 'Account created successfully')
@@ -62,8 +62,8 @@ export default class AccountsController {
     const data = request.only(['name', 'accountTypeId', 'balance'])
 
     account.name = data.name
-    account.accountTypeId = data.accountTypeId
-    account.balance = data.balance
+    account.accountTypeId = Number(data.accountTypeId)
+    account.balance = Number(data.balance)
     await account.save()
 
     session.flash('success', 'Account updated successfully')

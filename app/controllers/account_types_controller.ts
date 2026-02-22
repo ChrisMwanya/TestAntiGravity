@@ -24,6 +24,21 @@ export default class AccountTypesController {
     return response.redirect().back()
   }
 
+  async update({ auth, params, request, response, session }: HttpContext) {
+    const user = auth.user!
+    const type = await AccountType.query()
+      .where('id', params.id)
+      .where('user_id', user.id)
+      .firstOrFail()
+
+    const { name } = request.only(['name'])
+    type.name = name
+    await type.save()
+
+    session.flash('success', 'Account type updated successfully')
+    return response.redirect().back()
+  }
+
   async destroy({ auth, params, response, session }: HttpContext) {
     const user = auth.user!
     const type = await AccountType.query()
