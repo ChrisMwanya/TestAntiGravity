@@ -33,7 +33,7 @@ export default class DashboardController {
         'account_id',
         accounts.map((a) => a.id)
       )
-      .whereRaw(`strftime('%Y-%m', date) = ?`, [currentMonth])
+      .whereRaw(`TO_CHAR(date, 'YYYY-MM') = ?`, [currentMonth])
       .select('type')
       .sum('amount as total')
       .groupBy('type')

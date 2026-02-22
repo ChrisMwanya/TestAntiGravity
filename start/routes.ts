@@ -76,6 +76,8 @@ router
     // Accounts
     router.get('/accounts', [AccountsController, 'index']).as('accounts.index')
     router.post('/accounts', [AccountsController, 'store']).as('accounts.store')
+    router.get('/accounts/:id/edit', [AccountsController, 'edit']).as('accounts.edit')
+    router.put('/accounts/:id', [AccountsController, 'update']).as('accounts.update')
     router.delete('/accounts/:id', [AccountsController, 'destroy']).as('accounts.destroy')
 
     // Account Types

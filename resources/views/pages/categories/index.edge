@@ -2,9 +2,9 @@
 
   @slot('main')
     <div class="space-y-8">
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 class="text-3xl font-bold mb-2">
+          <h1 class="text-2xl sm:text-3xl font-bold mb-2">
             Categories
           </h1>
           <p class="text-slate-400">
@@ -18,7 +18,7 @@
         <h2 class="text-xl font-bold mb-4">
           Add New Category
         </h2>
-        <form action="{{ route('categories.store') }}" method="POST" class="flex gap-4 items-end">
+        <form action="{{ route('categories.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
           {{ csrfField() }}
           <div class="flex-1">
             <label class="block text-sm font-medium mb-2">Name</label>
@@ -31,7 +31,7 @@
             />
           </div>
 
-          <div class="w-48">
+          <div class="w-full sm:w-48">
             <label class="block text-sm font-medium mb-2">Type</label>
             <select
               name="type"
@@ -49,7 +49,7 @@
 
           <button
             type="submit"
-            class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+            class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
           >
             Add Category
         </button>

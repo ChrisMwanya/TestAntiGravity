@@ -3,10 +3,10 @@
   @slot('main')
     <div class="space-y-6">
       <!-- Header -->
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h1
-            class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+            class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
           >
             Welcome back, {{ user.fullName || user.email }}
           </h1>
@@ -16,7 +16,7 @@
         </div>
         <a
           href="{{ route('transactions.create') }}"
-          class="group relative px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-purple-500/50 flex items-center space-x-2"
+          class="group relative px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-purple-500/50 flex items-center justify-center sm:justify-start space-x-2 w-full sm:w-auto"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -31,22 +31,22 @@
       </div>
 
       <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <!-- Total Balance -->
         <div
-          class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform"
+          class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform"
         >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-sm">
+              <p class="text-gray-400 text-xs sm:text-sm">
                 Total Balance
               </p>
-              <h3 class="text-3xl font-bold mt-2">
+              <h3 class="text-xl sm:text-3xl font-bold mt-2">
                 ${{ totalBalance.toFixed(2) }}
               </h3>
             </div>
-            <div class="w-12 h-12 bg-purple-500/30 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/30 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -60,19 +60,19 @@
 
         <!-- Income -->
         <div
-          class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform"
+          class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform"
         >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-sm">
+              <p class="text-gray-400 text-xs sm:text-sm">
                 Monthly Income
               </p>
-              <h3 class="text-3xl font-bold mt-2 text-green-400">
+              <h3 class="text-xl sm:text-3xl font-bold mt-2 text-green-400">
                 ${{ income.toFixed(2) }}
               </h3>
             </div>
-            <div class="w-12 h-12 bg-green-500/30 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/30 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -86,19 +86,19 @@
 
         <!-- Expenses -->
         <div
-          class="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform"
+          class="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform"
         >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-sm">
+              <p class="text-gray-400 text-xs sm:text-sm">
                 Monthly Expenses
               </p>
-              <h3 class="text-3xl font-bold mt-2 text-red-400">
+              <h3 class="text-xl sm:text-3xl font-bold mt-2 text-red-400">
                 ${{ expenses.toFixed(2) }}
               </h3>
             </div>
-            <div class="w-12 h-12 bg-red-500/30 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/30 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -112,19 +112,19 @@
 
         <!-- Investments -->
         <div
-          class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:scale-105 transition-transform"
+          class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform"
         >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-sm">
+              <p class="text-gray-400 text-xs sm:text-sm">
                 Total Investments
               </p>
-              <h3 class="text-3xl font-bold mt-2 text-blue-400">
+              <h3 class="text-xl sm:text-3xl font-bold mt-2 text-blue-400">
                 ${{ totalInvestments.toFixed(2) }}
               </h3>
             </div>
-            <div class="w-12 h-12 bg-blue-500/30 rounded-full flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/30 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -140,19 +140,19 @@
       <!-- Recent Transactions & Accounts -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Recent Transactions -->
-        <div class="lg:col-span-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <div class="lg:col-span-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">
+            <h2 class="text-xl sm:text-2xl font-bold">
               Recent Transactions
             </h2>
-            <a href="/transactions" class="text-purple-400 hover:text-purple-300 transition">View All →</a>
+            <a href="/transactions" class="text-purple-400 hover:text-purple-300 transition text-sm sm:text-base">View All →</a>
           </div>
-          <div class="space-y-4">
+          <div class="space-y-3 sm:space-y-4">
             @each(transaction in recentTransactions)
-              <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition">
-                <div class="flex items-center space-x-4">
+              <div class="flex items-center justify-between p-3 sm:p-4 bg-white/5 rounded-xl hover:bg-white/10 transition">
+                <div class="flex items-center space-x-3 sm:space-x-4 min-w-0">
                   <div
-                    class="w-10 h-10 rounded-full flex items-center justify-center {{ transaction.type === 'income' ? 'bg-green-500/20' : 'bg-red-500/20' }}"
+                    class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex-shrink-0 flex items-center justify-center {{ transaction.type === 'income' ? 'bg-green-500/20' : 'bg-red-500/20' }}"
                   >
                     @if(transaction.type === 'income')
                       <span class="text-green-400">↑</span>
@@ -160,17 +160,17 @@
                       <span class="text-red-400">↓</span>
                     @endif
                   </div>
-                  <div>
-                    <p class="font-medium">
+                  <div class="min-w-0">
+                    <p class="font-medium truncate">
                       {{ transaction.category?.name || 'Uncategorized' }}
                     </p>
-                    <p class="text-sm text-gray-400">
+                    <p class="text-xs sm:text-sm text-gray-400 truncate">
                       {{ transaction.account.name }} • {{ transaction.date.toFormat('MMM dd, yyyy') }}
                     </p>
                   </div>
                 </div>
-                <div class="text-right">
-                  <p class="font-bold {{ transaction.type === 'income' ? 'text-green-400' : 'text-red-400' }}">
+                <div class="text-right flex-shrink-0 ml-2">
+                  <p class="font-bold text-sm sm:text-base {{ transaction.type === 'income' ? 'text-green-400' : 'text-red-400' }}">
                     {{ transaction.type === 'income' ? '+' : '-' }}${{ transaction.amount }}
                   </p>
                 </div>
@@ -184,12 +184,12 @@
         </div>
 
         <!-- Accounts Summary -->
-        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">
+            <h2 class="text-xl sm:text-2xl font-bold">
               Accounts
             </h2>
-            <a href="/accounts" class="text-purple-400 hover:text-purple-300 transition">Manage →</a>
+            <a href="/accounts" class="text-purple-400 hover:text-purple-300 transition text-sm sm:text-base">Manage →</a>
           </div>
           <div class="space-y-4">
             @each(account in accounts)

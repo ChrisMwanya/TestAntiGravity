@@ -36,6 +36,40 @@ export default class AccountsController {
     return response.redirect().back()
   }
 
+  async edit({ params, auth, view }: HttpContext) {
+    const user = auth.user!
+    const account = await Account.query()
+      .where('id', params.id)
+      .where('user_id', user.id)
+      .preload('accountType')
+      .firstOrFail()
+
+    const accountTypes = await AccountType.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .orderBy('name', 'asc')
+
+    return view.render('pages/accounts/edit', { account, accountTypes })
+  }
+
+  async update({ params, auth, request, response, session }: HttpContext) {
+    const user = auth.user!
+    const account = await Account.query()
+      .where('id', params.id)
+      .where('user_id', user.id)
+      .firstOrFail()
+
+    const data = request.only(['name', 'accountTypeId', 'balance'])
+
+    account.name = data.name
+    account.accountTypeId = data.accountTypeId
+    account.balance = data.balance
+    await account.save()
+
+    session.flash('success', 'Account updated successfully')
+    return response.redirect('/accounts')
+  }
+
   async destroy({ params, response }: HttpContext) {
     const account = await Account.findOrFail(params.id)
     await account.delete()

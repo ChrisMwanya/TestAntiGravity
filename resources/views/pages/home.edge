@@ -17,7 +17,7 @@
   <body class="bg-slate-900 text-white font-sans antialiased">
 
     <!-- Navigation -->
-    <nav class="absolute top-0 w-full z-50">
+    <nav class="absolute top-0 w-full z-50" x-data="{ mobileOpen: false }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <div class="flex-shrink-0">
@@ -28,6 +28,7 @@
               FinanceApp
           </a>
           </div>
+          <!-- Desktop Links -->
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <a
@@ -40,6 +41,37 @@
               >Get Started</a>
             </div>
           </div>
+          <!-- Mobile Hamburger -->
+          <button
+            @click="mobileOpen = !mobileOpen"
+            class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/10 transition"
+            aria-label="Toggle menu"
+          >
+            <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        x-show="mobileOpen"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        class="md:hidden bg-slate-900/95 backdrop-blur-md border-t border-white/10"
+        style="display: none;"
+      >
+        <div class="px-4 py-4 flex flex-col space-y-3">
+          <a href="/login" class="block px-4 py-2 rounded-lg hover:bg-white/10 transition text-gray-300 font-medium">Sign In</a>
+          <a href="/register" class="block px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition font-medium border border-white/10">Get Started</a>
         </div>
       </div>
     </nav>
@@ -60,14 +92,14 @@
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
         <div class="text-center max-w-3xl mx-auto">
-          <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8">
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-8">
             Master Your Money <br />
             <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Build Your Future</span>
           </h1>
-          <p class="text-xl text-gray-400 mb-10 leading-relaxed">
+          <p class="text-lg sm:text-xl text-gray-400 mb-10 leading-relaxed px-4">
             Take control of your finances with our powerful, intuitive platform. Track expenses, set budgets, and watch your wealth grow—all in one place.
           </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
             <a
               href="/register"
               class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-lg font-bold hover:from-purple-600 hover:to-pink-600 transition shadow-lg shadow-purple-500/25"
@@ -89,7 +121,7 @@
     <div class="py-24 bg-slate-900/50 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             Everything you need to succeed
           </h2>
           <p class="text-gray-400">
@@ -97,7 +129,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <!-- Feature 1 -->
           <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition group">
             <div
@@ -198,9 +230,9 @@
     <!-- Footer -->
     <footer class="border-t border-white/10 py-12 bg-slate-900">
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4"
       >
-        <div class="mb-4 md:mb-0">
+        <div class="text-center md:text-left">
           <span
             class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
           >

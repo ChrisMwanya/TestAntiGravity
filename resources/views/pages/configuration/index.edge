@@ -2,9 +2,9 @@
 
   @slot('main')
     <div class="space-y-8" x-data="{ activeTab: 'accounts' }">
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 class="text-3xl font-bold mb-2">
+          <h1 class="text-2xl sm:text-3xl font-bold mb-2">
             @if(isOnboarding)
               Welcome to FinanceApp!
             @else
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Tabs Navigation -->
-      <div class="flex space-x-1 bg-white/5 p-1 rounded-xl backdrop-blur-md border border-white/10 w-fit">
+      <div class="flex space-x-1 bg-white/5 p-1 rounded-xl backdrop-blur-md border border-white/10 overflow-x-auto">
         <button
           @click="activeTab = 'accounts'"
           :class="{ 'bg-white/10 text-white shadow-lg': activeTab === 'accounts', 'text-slate-400 hover:text-white hover:bg-white/5': activeTab !== 'accounts' }"
@@ -175,7 +175,7 @@
           <h2 class="text-xl font-bold mb-4">
             Add New Account Type
           </h2>
-          <form action="{{ route('account_types.store') }}" method="POST" class="flex gap-4 items-end">
+          <form action="{{ route('account_types.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
             {{ csrfField() }}
             <div class="flex-1">
               <label class="block text-sm font-medium mb-2">Type Name</label>
@@ -189,7 +189,7 @@
             </div>
             <button
               type="submit"
-              class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+              class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
             >
               Add Type
           </button>
@@ -241,7 +241,7 @@
           <h2 class="text-xl font-bold mb-4">
             Add New Category
           </h2>
-          <form action="{{ route('categories.store') }}" method="POST" class="flex gap-4 items-end">
+          <form action="{{ route('categories.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
             {{ csrfField() }}
             <div class="flex-1">
               <label class="block text-sm font-medium mb-2">Name</label>
@@ -253,7 +253,7 @@
                 placeholder="e.g., Freelance, Hobbies"
               />
             </div>
-            <div class="w-48">
+            <div class="w-full sm:w-48">
               <label class="block text-sm font-medium mb-2">Type</label>
               <select
                 name="type"
@@ -270,7 +270,7 @@
             </div>
             <button
               type="submit"
-              class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
+              class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
             >
               Add Category
           </button>

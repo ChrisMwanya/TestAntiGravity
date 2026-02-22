@@ -23,7 +23,7 @@ export default class BudgetsController {
           )
           .where('category_id', budget.categoryId)
           .where('type', 'expense')
-          .whereRaw(`strftime('%Y-%m', date) = ?`, [currentMonth])
+          .whereRaw(`TO_CHAR(date, 'YYYY-MM') = ?`, [currentMonth])
           .sum('amount as total')
           .first()
 
