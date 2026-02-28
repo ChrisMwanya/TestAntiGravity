@@ -68,12 +68,6 @@ export default class FixedChargesController {
       .preload('category')
       .orderBy('name', 'asc')
 
-    const categories = await Category.query()
-      .whereNull('user_id')
-      .orWhere('user_id', user.id)
-      .where('type', 'expense')
-      .orderBy('name', 'asc')
-
     const activeCharges = charges.filter((c) => c.status === 'active')
     const inactiveCharges = charges.filter((c) => c.status === 'inactive')
 
@@ -94,8 +88,19 @@ export default class FixedChargesController {
       inactiveCharges: inactiveCharges.map((c) => c.toJSON()),
       monthlyTotal,
       yearlyTotal,
-      categories,
     })
+  }
+
+  async create({ auth, view }: HttpContext) {
+    const user = auth.user!
+
+    const categories = await Category.query()
+      .whereNull('user_id')
+      .orWhere('user_id', user.id)
+      .where('type', 'expense')
+      .orderBy('name', 'asc')
+
+    return view.render('pages/fixed_charges/create', { categories })
   }
 
   async store({ auth, request, response, session }: HttpContext) {

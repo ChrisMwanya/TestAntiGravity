@@ -1,23 +1,23 @@
-@layout.app({ title: 'Create Transaction' })
+@layout.app({ title: 'Nouvelle transaction' })
 
   @slot('main')
     <div class="max-w-2xl mx-auto">
       <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8">
         <h1 class="text-3xl font-bold mb-6">
-          New Transaction
+          Nouvelle transaction
         </h1>
 
         <form action="/transactions" method="POST" class="space-y-6">
           {{ csrfField() }}
           <div>
-            <label class="block text-sm font-medium mb-2">Account</label>
+            <label class="block text-sm font-medium mb-2">Compte</label>
             <select
               name="accountId"
               required
               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
             >
               <option value="">
-                Select account
+                Sélectionner un compte
               </option>
               @each(account in accounts)
                 <option value="{{ account.id }}">
@@ -28,13 +28,13 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2">Category</label>
+            <label class="block text-sm font-medium mb-2">Catégorie</label>
             <select
               name="categoryId"
               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
             >
               <option value="">
-                Select category (optional)
+                Sélectionner une catégorie (optionnel)
               </option>
               @each(category in categories)
                 <option value="{{ category.id }}">
@@ -52,16 +52,16 @@
               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
             >
               <option value="income">
-                Income
+                Revenu
               </option>
               <option value="expense">
-                Expense
+                Dépense
               </option>
             </select>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2">Amount</label>
+            <label class="block text-sm font-medium mb-2">Montant</label>
             <input
               type="number"
               name="amount"
@@ -88,7 +88,7 @@
               name="description"
               rows="3"
               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-              placeholder="Optional description"
+              placeholder="Description optionnelle"
             ></textarea>
           </div>
 
@@ -97,13 +97,13 @@
               type="submit"
               class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
             >
-              Create Transaction
+              Créer la transaction
           </button>
             <a
               href="/transactions"
               class="flex-1 px-6 py-3 bg-white/10 rounded-xl hover:bg-white/20 transition font-medium text-center"
             >
-              Cancel
+              Annuler
           </a>
           </div>
         </form>

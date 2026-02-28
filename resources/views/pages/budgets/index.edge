@@ -7,17 +7,17 @@
         <h1
           class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
         >
-          Budget Management
+          Gestion des budgets
         </h1>
         <p class="text-gray-400 mt-2">
-          Track your spending against your budget goals
+          Suivez vos dépenses par rapport à vos objectifs budgétaires
         </p>
       </div>
 
       <!-- Create Budget Form -->
       <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
         <h2 class="text-xl font-bold mb-4">
-          Create New Budget
+          Créer un budget
         </h2>
         <form action="/budgets" method="POST" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {{ csrfField() }}
@@ -40,7 +40,7 @@
             name="amount"
             step="0.01"
             required
-            placeholder="Budget amount"
+            placeholder="Montant du budget"
             class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
           />
           <select
@@ -48,20 +48,20 @@
             class="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white"
           >
             <option value="monthly">
-              Monthly
+              Mensuel
             </option>
             <option value="weekly">
-              Weekly
+              Hebdomadaire
             </option>
             <option value="yearly">
-              Yearly
+              Annuel
             </option>
           </select>
           <button
             type="submit"
             class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
           >
-            Add Budget
+            Ajouter un budget
         </button>
         </form>
       </div>
@@ -100,7 +100,7 @@
 
             <div class="space-y-2">
               <div class="flex justify-between text-sm">
-                <span class="text-gray-400">Spent</span>
+                <span class="text-gray-400">Dépensé</span>
                 <span class="font-medium">${{ budget.spent.toFixed(2) }} / ${{ budget.amount }}</span>
               </div>
               <div class="w-full bg-white/10 rounded-full h-3 overflow-hidden">
@@ -116,13 +116,13 @@
                 >
                   {{ budget.percentage.toFixed(1) }}% used
               </span>
-                <span class="text-gray-400">${{ (budget.amount - budget.spent).toFixed(2) }} remaining</span>
+                <span class="text-gray-400">${{ (budget.amount - budget.spent).toFixed(2) }} restant</span>
               </div>
             </div>
           </div>
         @else
           <div class="col-span-full text-center py-12 text-gray-400">
-            No budgets yet. Create your first budget above!
+            Aucun budget pour le moment. Créez votre premier budget !
           </div>
         @endeach
       </div>

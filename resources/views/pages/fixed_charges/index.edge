@@ -1,14 +1,25 @@
-@layout.app({ title: 'Fixed Charges' })
+@layout.app({ title: 'Charges fixes' })
 
   @slot('main')
     <div class="space-y-6" x-data="{ showInactive: false }">
 
       <!-- Header -->
-      <div>
-        <h1 class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-          Fixed Charges
-        </h1>
-        <p class="text-gray-400 mt-2">Manage your recurring bills and subscriptions</p>
+      <div class="flex items-start justify-between">
+        <div>
+          <h1 class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
+            Charges fixes
+          </h1>
+          <p class="text-gray-400 mt-2">Gérez vos factures récurrentes et abonnements</p>
+        </div>
+        <a
+          href="/fixed-charges/create"
+          class="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl hover:from-orange-600 hover:to-yellow-600 transition font-semibold shadow-lg text-sm shrink-0"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Ajouter
+        </a>
       </div>
 
       <!-- Flash Messages -->
@@ -26,154 +37,24 @@
       <!-- Stats Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="bg-gradient-to-br from-orange-500/20 to-yellow-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-          <p class="text-gray-400 text-sm">Monthly Cost (active)</p>
+          <p class="text-gray-400 text-sm">Coût mensuel (actif)</p>
           <h3 class="text-4xl font-bold mt-2 text-orange-400">${{ monthlyTotal.toFixed(2) }}</h3>
-          <p class="text-xs text-gray-500 mt-1">{{ activeCharges.length }} active charge(s)</p>
+          <p class="text-xs text-gray-500 mt-1">{{ activeCharges.length }} charge(s) active(s)</p>
         </div>
         <div class="bg-gradient-to-br from-yellow-500/20 to-amber-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-          <p class="text-gray-400 text-sm">Estimated Yearly Cost</p>
+          <p class="text-gray-400 text-sm">Coût annuel estimé</p>
           <h3 class="text-4xl font-bold mt-2 text-yellow-400">${{ yearlyTotal.toFixed(2) }}</h3>
-          <p class="text-xs text-gray-500 mt-1">Based on active charges</p>
+          <p class="text-xs text-gray-500 mt-1">Basé sur les charges actives</p>
         </div>
-      </div>
-
-      <!-- Add Form -->
-      <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-        <h2 class="text-xl font-bold mb-4">Add New Fixed Charge</h2>
-        <form action="/fixed-charges" method="POST" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {{ csrfField() }}
-
-          <!-- Name -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="e.g., Rent, Netflix, Electricity"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition"
-            />
-          </div>
-
-          <!-- Amount -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Amount</label>
-            <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">$</span>
-              <input
-                type="number"
-                name="amount"
-                step="0.01"
-                min="0.01"
-                required
-                placeholder="0.00"
-                class="w-full pl-8 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition"
-              />
-            </div>
-          </div>
-
-          <!-- Frequency -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Frequency</label>
-            <select
-              name="frequency"
-              required
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white"
-            >
-              <option value="daily">📅 Daily</option>
-              <option value="weekly">📅 Weekly</option>
-              <option value="monthly" selected>📅 Monthly</option>
-              <option value="quarterly">📅 Quarterly</option>
-              <option value="yearly">📅 Yearly</option>
-            </select>
-          </div>
-
-          <!-- Billing Day -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">
-              Billing Day <span class="text-gray-500">(day of month, optional)</span>
-            </label>
-            <input
-              type="number"
-              name="billingDay"
-              min="1"
-              max="31"
-              placeholder="e.g., 1, 15, 28"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition"
-            />
-          </div>
-
-          <!-- Start Date -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              required
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition text-white"
-            />
-          </div>
-
-          <!-- End Date -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">
-              End Date <span class="text-gray-500">(optional)</span>
-            </label>
-            <input
-              type="date"
-              name="endDate"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition text-white"
-            />
-          </div>
-
-          <!-- Category -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">
-              Category <span class="text-gray-500">(optional)</span>
-            </label>
-            <select
-              name="categoryId"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white"
-            >
-              <option value="">— None —</option>
-              @each(cat in categories)
-                <option value="{{ cat.id }}">{{ cat.name }}</option>
-              @endeach
-            </select>
-          </div>
-
-          <!-- Notes -->
-          <div class="sm:col-span-2">
-            <label class="block text-sm font-medium mb-2 text-gray-300">
-              Notes <span class="text-gray-500">(optional)</span>
-            </label>
-            <input
-              type="text"
-              name="notes"
-              placeholder="Additional details..."
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none transition"
-            />
-          </div>
-
-          <!-- Submit -->
-          <div class="sm:col-span-2 lg:col-span-3">
-            <button
-              type="submit"
-              class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl hover:from-orange-600 hover:to-yellow-600 transition font-semibold shadow-lg"
-            >
-              Add Fixed Charge
-            </button>
-          </div>
-        </form>
       </div>
 
       <!-- Active Charges -->
       <div class="space-y-4">
-        <h2 class="text-2xl font-bold">Active Charges</h2>
+        <h2 class="text-2xl font-bold">Charges actives</h2>
 
         @if(activeCharges.length === 0)
           <div class="text-center py-12 text-gray-400 bg-white/5 rounded-2xl border border-white/10 border-dashed">
-            No active charges. Add your first recurring bill above!
+            Aucune charge active pour le moment. <a href="/fixed-charges/create" class="text-orange-400 underline hover:text-orange-300">Ajoutez votre première facture récurrente !</a>
           </div>
         @else
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -194,7 +75,7 @@
                       {{ csrfField() }}
                       <button
                         type="submit"
-                        title="Pause this charge"
+                        title="Suspendre cette charge"
                         class="text-yellow-400 hover:text-yellow-300 transition p-1 hover:bg-yellow-500/10 rounded-lg"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -207,7 +88,7 @@
                       {{ csrfField() }}
                       <button
                         type="submit"
-                        onclick="return confirm('Delete this fixed charge?')"
+                        onclick="return confirm('Supprimer cette charge fixe ?')"
                         class="text-red-400 hover:text-red-300 transition p-1 hover:bg-red-500/10 rounded-lg"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,7 +107,7 @@
                 <div class="flex items-end justify-between mb-3">
                   <div>
                     <p class="text-3xl font-bold text-orange-400">${{ Number(charge.amount).toFixed(2) }}</p>
-                    <span class="text-xs text-gray-400 capitalize">per {{ charge.frequency }}</span>
+                    <span class="text-xs text-gray-400 capitalize">par {{ charge.frequency }}</span>
                   </div>
                   <span class="text-xs font-medium bg-orange-500/20 text-orange-300 px-2 py-1 rounded-full capitalize">
                     {{ charge.frequency }}
@@ -236,18 +117,18 @@
                 <!-- Dates -->
                 <div class="pt-3 border-t border-white/10 space-y-1 text-sm">
                   <div class="flex justify-between">
-                    <span class="text-gray-400">Next due</span>
+                    <span class="text-gray-400">Prochain paiement</span>
                     <span class="font-medium text-orange-300">{{ charge.nextDueDate }}</span>
                   </div>
                   @if(charge.endDate)
                     <div class="flex justify-between">
-                      <span class="text-gray-400">Expires</span>
+                      <span class="text-gray-400">Expire</span>
                       <span>{{ charge.endDate }}</span>
                     </div>
                   @endif
                   @if(charge.billingDay)
                     <div class="flex justify-between">
-                      <span class="text-gray-400">Billing day</span>
+                      <span class="text-gray-400">Jour de facturation</span>
                       <span>{{ charge.billingDay }}</span>
                     </div>
                   @endif
@@ -268,7 +149,7 @@
             <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-90': showInactive }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <span x-text="showInactive ? 'Hide' : 'Show'"></span> Paused Charges ({{ inactiveCharges.length }})
+            <span x-text="showInactive ? 'Masquer' : 'Afficher'"></span> Charges suspendues ({{ inactiveCharges.length }})
           </button>
 
           <div x-show="showInactive" x-transition class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" style="display:none;">
@@ -285,7 +166,7 @@
                       {{ csrfField() }}
                       <button
                         type="submit"
-                        title="Activate"
+                        title="Activer"
                         class="text-green-400 hover:text-green-300 transition p-1 hover:bg-green-500/10 rounded-lg"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,7 +179,7 @@
                       {{ csrfField() }}
                       <button
                         type="submit"
-                        onclick="return confirm('Delete this fixed charge?')"
+                        onclick="return confirm('Supprimer cette charge fixe ?')"
                         class="text-red-400 hover:text-red-300 transition p-1 hover:bg-red-500/10 rounded-lg"
                       >
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -309,7 +190,7 @@
                   </div>
                 </div>
                 <p class="text-2xl font-bold">${{ Number(charge.amount).toFixed(2) }}</p>
-                <p class="text-xs text-gray-500 mt-1">⏸ Paused</p>
+                <p class="text-xs text-gray-500 mt-1">⏸ Suspendue</p>
               </div>
             @endeach
           </div>

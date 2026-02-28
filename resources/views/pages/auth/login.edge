@@ -1,4 +1,4 @@
-@layout.auth({ title: 'Login - Finance Manager' })
+@layout.auth({ title: 'Connexion - FinanceApp' })
 
   @slot('main')
     <div class="max-w-md w-full mx-4">
@@ -10,14 +10,14 @@
             FinanceApp
           </h1>
           <p class="text-gray-400">
-            Welcome back!
+            Bon retour !
           </p>
         </div>
 
         <form action="/login" method="POST" class="space-y-4">
           {{ csrfField() }}
           <div>
-            <label class="block text-sm font-medium mb-2">Email</label>
+            <label class="block text-sm font-medium mb-2">E-mail</label>
             <input
               type="email"
               name="email"
@@ -28,7 +28,7 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2">Password</label>
+            <label class="block text-sm font-medium mb-2">Mot de passe</label>
             <input
               type="password"
               name="password"
@@ -42,12 +42,12 @@
             type="submit"
             class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
           >
-            Login
+            Connexion
         </button>
 
           <p class="text-center text-gray-400 text-sm">
-            Don't have an account? 
-          <a href="/register" class="text-purple-400 hover:text-purple-300 transition">Register here</a>
+            Pas encore de compte ?
+          <a href="/register" class="text-purple-400 hover:text-purple-300 transition">S'inscrire</a>
           </p>
         </form>
       </div>

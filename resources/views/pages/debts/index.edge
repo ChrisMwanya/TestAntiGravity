@@ -1,14 +1,25 @@
-@layout.app({ title: 'Debts' })
+@layout.app({ title: 'Dettes' })
 
   @slot('main')
     <div class="space-y-6" x-data="{ showPaid: false }">
 
       <!-- Header -->
-      <div>
-        <h1 class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
-          Debt Tracker
-        </h1>
-        <p class="text-gray-400 mt-2">Track what you owe and what others owe you</p>
+      <div class="flex items-start justify-between">
+        <div>
+          <h1 class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+            Suivi des dettes
+          </h1>
+          <p class="text-gray-400 mt-2">Suivez ce que vous devez et ce qu'on vous doit</p>
+        </div>
+        <a
+          href="/debts/create"
+          class="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl hover:from-red-600 hover:to-orange-600 transition font-semibold shadow-lg text-sm shrink-0"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Ajouter une dette
+        </a>
       </div>
 
       <!-- Flash Messages -->
@@ -27,106 +38,26 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Total Borrowed -->
         <div class="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-          <p class="text-gray-400 text-sm">Total I Owe (Borrowed)</p>
+          <p class="text-gray-400 text-sm">Ce que je dois (emprunté)</p>
           <h3 class="text-4xl font-bold mt-2 text-red-400">${{ totalBorrowed.toFixed(2) }}</h3>
-          <p class="text-xs text-gray-500 mt-1">Remaining to pay</p>
+          <p class="text-xs text-gray-500 mt-1">Restant à rembourser</p>
         </div>
         <!-- Total Lent -->
         <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-          <p class="text-gray-400 text-sm">Total Owed to Me (Lent)</p>
+          <p class="text-gray-400 text-sm">Ce qu'on me doit (prêté)</p>
           <h3 class="text-4xl font-bold mt-2 text-green-400">${{ totalLent.toFixed(2) }}</h3>
-          <p class="text-xs text-gray-500 mt-1">Remaining to collect</p>
+          <p class="text-xs text-gray-500 mt-1">Restant à encaisser</p>
         </div>
       </div>
 
-      <!-- Add Debt Form -->
-      <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
-        <h2 class="text-xl font-bold mb-4">Add New Debt</h2>
-        <form action="/debts" method="POST" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {{ csrfField() }}
-
-          <!-- Name -->
-          <div class="lg:col-span-1">
-            <label class="block text-sm font-medium mb-2 text-gray-300">Name / Creditor</label>
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="e.g., Bank, Jean"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-            />
-          </div>
-
-          <!-- Type -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Type</label>
-            <select
-              name="type"
-              required
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-red-500 outline-none [&>option]:bg-slate-900 [&>option]:text-white"
-            >
-              <option value="borrowed">💸 I Borrowed (I owe)</option>
-              <option value="lent">🤝 I Lent (They owe me)</option>
-            </select>
-          </div>
-
-          <!-- Amount -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Amount</label>
-            <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">$</span>
-              <input
-                type="number"
-                name="amount"
-                step="0.01"
-                min="0.01"
-                required
-                placeholder="0.00"
-                class="w-full pl-8 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-              />
-            </div>
-          </div>
-
-          <!-- Due Date -->
-          <div>
-            <label class="block text-sm font-medium mb-2 text-gray-300">Due Date <span class="text-gray-500">(optional)</span></label>
-            <input
-              type="date"
-              name="dueDate"
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition text-white"
-            />
-          </div>
-
-          <!-- Notes -->
-          <div class="sm:col-span-2 lg:col-span-2">
-            <label class="block text-sm font-medium mb-2 text-gray-300">Notes <span class="text-gray-500">(optional)</span></label>
-            <input
-              type="text"
-              name="notes"
-              placeholder="Additional details..."
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-            />
-          </div>
-
-          <!-- Submit -->
-          <div class="sm:col-span-2 lg:col-span-3">
-            <button
-              type="submit"
-              class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl hover:from-red-600 hover:to-orange-600 transition font-semibold shadow-lg"
-            >
-              Add Debt
-            </button>
-          </div>
-        </form>
-      </div>
 
       <!-- Active Debts -->
       <div class="space-y-4">
-        <h2 class="text-2xl font-bold">Active Debts</h2>
+        <h2 class="text-2xl font-bold">Dettes actives</h2>
 
         @if(activeDebts.length === 0)
           <div class="text-center py-12 text-gray-400 bg-white/5 rounded-2xl border border-white/10 border-dashed">
-            No active debts. You're all clear! 🎉
+            Aucune dette active pour le moment. <a href="/debts/create" class="text-red-400 underline hover:text-red-300">Ajoutez votre première dette !</a>
           </div>
         @else
           <!-- Borrowed -->
@@ -134,7 +65,7 @@
           @if(borrowedDebts.length > 0)
             <div class="space-y-3">
               <h3 class="text-lg font-semibold text-red-400 flex items-center gap-2">
-                <span>💸</span> I Owe
+                <span>💸</span> Je dois
               </h3>
               <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 @each(debt in borrowedDebts)
@@ -149,7 +80,7 @@
           @if(lentDebts.length > 0)
             <div class="space-y-3">
               <h3 class="text-lg font-semibold text-green-400 flex items-center gap-2">
-                <span>🤝</span> Owed to Me
+                <span>🤝</span> On me doit
               </h3>
               <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 @each(debt in lentDebts)
@@ -171,7 +102,7 @@
             <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-90': showPaid }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-            <span x-text="showPaid ? 'Hide' : 'Show'"></span> Settled Debts ({{ paidDebts.length }})
+            <span x-text="showPaid ? 'Masquer' : 'Afficher'"></span> Dettes réglées ({{ paidDebts.length }})
           </button>
 
           <div x-show="showPaid" x-transition class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" style="display:none;">
@@ -181,17 +112,17 @@
                   <div>
                     <h3 class="font-bold text-lg">{{ debt.name }}</h3>
                     <span class="text-xs {{ debt.type === 'borrowed' ? 'text-red-400' : 'text-green-400' }}">
-                      {{ debt.type === 'borrowed' ? '💸 Borrowed' : '🤝 Lent' }}
+                      {{ debt.type === 'borrowed' ? '💸 Emprunté' : '🤝 Prêté' }}
                     </span>
                   </div>
-                  <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full font-medium">✓ Paid</span>
+                  <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full font-medium">✓ Réglé</span>
                 </div>
                 <p class="text-2xl font-bold">${{ Number(debt.amount).toFixed(2) }}</p>
                 <div class="mt-3 flex justify-end">
                   <form action="/debts/{{ debt.id }}?_method=DELETE" method="POST">
                     {{ csrfField() }}
-                    <button type="submit" onclick="return confirm('Delete this debt record?')" class="text-red-400 hover:text-red-300 text-xs transition">
-                      Delete record
+                    <button type="submit" onclick="return confirm('Supprimer cet enregistrement de dette ?')" class="text-red-400 hover:text-red-300 text-xs transition">
+                      Supprimer
                     </button>
                   </form>
                 </div>

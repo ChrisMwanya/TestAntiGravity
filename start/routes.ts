@@ -105,12 +105,14 @@ router
 
     // Debts
     router.get('/debts', [DebtsController, 'index']).as('debts.index')
+    router.get('/debts/create', [DebtsController, 'create']).as('debts.create')
     router.post('/debts', [DebtsController, 'store']).as('debts.store')
     router.put('/debts/:id/pay', [DebtsController, 'pay']).as('debts.pay')
     router.delete('/debts/:id', [DebtsController, 'destroy']).as('debts.destroy')
 
     // Fixed Charges
     router.get('/fixed-charges', [FixedChargesController, 'index']).as('fixed_charges.index')
+    router.get('/fixed-charges/create', [FixedChargesController, 'create']).as('fixed_charges.create')
     router.post('/fixed-charges', [FixedChargesController, 'store']).as('fixed_charges.store')
     router.patch('/fixed-charges/:id/toggle', [FixedChargesController, 'toggle']).as('fixed_charges.toggle')
     router.delete('/fixed-charges/:id', [FixedChargesController, 'destroy']).as('fixed_charges.destroy')

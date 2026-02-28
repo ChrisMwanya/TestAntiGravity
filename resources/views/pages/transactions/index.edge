@@ -13,7 +13,7 @@
           href="/transactions/create"
           class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium text-center w-full sm:w-auto"
         >
-          + New Transaction
+          + Nouvelle transaction
       </a>
       </div>
 
@@ -30,13 +30,13 @@
                   Description
                 </th>
                 <th class="hidden sm:table-cell px-6 py-4 text-left text-sm font-medium text-gray-400">
-                  Category
+                  Catégorie
                 </th>
                 <th class="hidden md:table-cell px-6 py-4 text-left text-sm font-medium text-gray-400">
-                  Account
+                  Compte
                 </th>
                 <th class="px-4 sm:px-6 py-4 text-left text-sm font-medium text-gray-400">
-                  Amount
+                  Montant
                 </th>
                 <th class="px-4 sm:px-6 py-4 text-left text-sm font-medium text-gray-400">
                   Actions
@@ -51,11 +51,11 @@
                   </td>
                   <td class="px-4 sm:px-6 py-4">
                     <p class="font-medium truncate max-w-[120px] sm:max-w-xs">
-                      {{ transaction.description || 'No description' }}
+                      {{ transaction.description || 'Sans description' }}
                     </p>
                   </td>
                   <td class="hidden sm:table-cell px-6 py-4 text-sm">
-                    {{ transaction.category?.name || 'Uncategorized' }}
+                    {{ transaction.category?.name || 'Sans catégorie' }}
                   </td>
                   <td class="hidden md:table-cell px-6 py-4 text-sm">
                     {{ transaction.account.name }}
@@ -71,16 +71,16 @@
                         href="/transactions/{{ transaction.id }}/edit"
                         class="px-3 py-1 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg text-sm transition"
                       >
-                        Edit
+                        Modifier
                     </a>
                       <form action="/transactions/{{ transaction.id }}?_method=DELETE" method="POST" class="inline">
                         {{ csrfField() }}
                       <button
                           type="submit"
                           class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-sm transition"
-                          onclick="return confirm('Are you sure?')"
+                          onclick="return confirm('Êtes-vous sûr ?')"
                         >
-                          Delete
+                          Supprimer
                       </button>
                       </form>
                     </div>
@@ -89,7 +89,7 @@
               @else
                 <tr>
                   <td colspan="6" class="px-6 py-12 text-center text-gray-400">
-                    No transactions yet. Create your first transaction!
+                    Aucune transaction pour le moment. <a href="/transactions/create" class="text-purple-400 underline">Créez votre première transaction !</a>
                   </td>
                 </tr>
               @endeach

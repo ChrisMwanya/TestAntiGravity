@@ -29,6 +29,10 @@ export default class DebtsController {
     })
   }
 
+  async create({ view }: HttpContext) {
+    return view.render('pages/debts/create')
+  }
+
   async store({ auth, request, response, session }: HttpContext) {
     const user = auth.user!
     const data = request.only(['name', 'type', 'amount', 'dueDate', 'notes'])

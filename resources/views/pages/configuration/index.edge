@@ -6,16 +6,16 @@
         <div>
           <h1 class="text-2xl sm:text-3xl font-bold mb-2">
             @if(isOnboarding)
-              Welcome to FinanceApp!
+              Bienvenue sur FinanceApp !
             @else
               Configuration
             @endif
           </h1>
           <p class="text-slate-400">
             @if(isOnboarding)
-              Let's set up your accounts and categories before we start. You can always change this later.
+              Configurons vos comptes et catégories avant de commencer. Vous pourrez toujours modifier cela plus tard.
             @else
-              Manage your accounts, types, and categories.
+              Gérez vos comptes, types et catégories.
             @endif
           </p>
         </div>
@@ -24,7 +24,7 @@
             href="/dashboard"
             class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium flex items-center space-x-2"
           >
-            <span>Finish Setup</span>
+            <span>Terminer la configuration</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fill-rule="evenodd"
@@ -43,21 +43,21 @@
           :class="{ 'bg-white/10 text-white shadow-lg': activeTab === 'accounts', 'text-slate-400 hover:text-white hover:bg-white/5': activeTab !== 'accounts' }"
           class="px-6 py-2.5 rounded-lg transition font-medium text-sm"
         >
-          Accounts
+          Comptes
       </button>
         <button
           @click="activeTab = 'types'"
           :class="{ 'bg-white/10 text-white shadow-lg': activeTab === 'types', 'text-slate-400 hover:text-white hover:bg-white/5': activeTab !== 'types' }"
           class="px-6 py-2.5 rounded-lg transition font-medium text-sm"
         >
-          Account Types
+          Types de comptes
       </button>
         <button
           @click="activeTab = 'categories'"
           :class="{ 'bg-white/10 text-white shadow-lg': activeTab === 'categories', 'text-slate-400 hover:text-white hover:bg-white/5': activeTab !== 'categories' }"
           class="px-6 py-2.5 rounded-lg transition font-medium text-sm"
         >
-          Categories
+          Catégories
       </button>
       </div>
 
@@ -66,7 +66,7 @@
         <!-- Create Account Form -->
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
           <h2 class="text-xl font-bold mb-4">
-            Add New Account
+            Nouveau compte
           </h2>
           <form
             action="{{ route('accounts.store') }}"
@@ -75,13 +75,13 @@
           >
             {{ csrfField() }}
             <div class="md:col-span-2">
-              <label class="block text-sm font-medium mb-2">Account Name</label>
+              <label class="block text-sm font-medium mb-2">Nom du compte</label>
               <input
                 type="text"
                 name="name"
                 required
                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-                placeholder="e.g., Main Checking"
+                placeholder="ex. Compte courant principal"
               />
             </div>
             <div>
@@ -99,7 +99,7 @@
               </select>
             </div>
             <div>
-              <label class="block text-sm font-medium mb-2">Initial Balance</label>
+              <label class="block text-sm font-medium mb-2">Solde initial</label>
               <input
                 type="number"
                 name="balance"
@@ -113,7 +113,7 @@
               type="submit"
               class="md:col-span-4 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium w-full md:w-auto md:ml-auto"
             >
-              Add Account
+              Ajouter un compte
           </button>
           </form>
         </div>
@@ -136,7 +136,7 @@
                 <form
                   action="{{ route('accounts.destroy', { id: account.id }) }}?_method=DELETE"
                   method="POST"
-                  onsubmit="return confirm('Delete this account? All related transactions will be deleted.')"
+                  onsubmit="return confirm('Supprimer ce compte ? Toutes les transactions associées seront supprimées.')"
                 >
                   {{ csrfField() }}
                 <button
@@ -163,7 +163,7 @@
             <div
               class="col-span-full text-center py-12 text-gray-400 bg-white/5 rounded-2xl border border-white/10 border-dashed"
             >
-              No accounts yet. Add your first account above!
+              Aucun compte pour le moment. Ajoutez votre premier compte !
             </div>
           @endeach
         </div>
@@ -173,25 +173,25 @@
       <div x-show="activeTab === 'types'" class="space-y-6" style="display: none;">
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
           <h2 class="text-xl font-bold mb-4">
-            Add New Account Type
+            Nouveau type de compte
           </h2>
           <form action="{{ route('account_types.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
             {{ csrfField() }}
             <div class="flex-1">
-              <label class="block text-sm font-medium mb-2">Type Name</label>
+              <label class="block text-sm font-medium mb-2">Nom du type</label>
               <input
                 type="text"
                 name="name"
                 required
                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none"
-                placeholder="e.g., Mobile Money, Crypto"
+                placeholder="ex. Mobile Money, Crypto"
               />
             </div>
             <button
               type="submit"
               class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
             >
-              Add Type
+              Ajouter
           </button>
           </form>
         </div>
@@ -206,14 +206,14 @@
                 </div>
                 <span class="font-medium">{{ type.name }}</span>
                 @if(!type.userId)
-                  <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">System</span>
+                  <span class="text-xs bg-white/10 px-2 py-1 rounded-full text-slate-400">Système</span>
                 @endif
               </div>
               @if(type.userId)
                 <form
                   action="{{ route('account_types.destroy', { id: type.id }) }}?_method=DELETE"
                   method="POST"
-                  onsubmit="return confirm('Are you sure?')"
+                  onsubmit="return confirm('Confirmer ?')"
                 >
                   {{ csrfField() }}
                 <button
@@ -239,12 +239,12 @@
       <div x-show="activeTab === 'categories'" class="space-y-6" style="display: none;">
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
           <h2 class="text-xl font-bold mb-4">
-            Add New Category
+            Nouvelle catégorie
           </h2>
           <form action="{{ route('categories.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
             {{ csrfField() }}
             <div class="flex-1">
-              <label class="block text-sm font-medium mb-2">Name</label>
+              <label class="block text-sm font-medium mb-2">Nom</label>
               <input
                 type="text"
                 name="name"
@@ -260,19 +260,15 @@
                 required
                 class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
               >
-                <option value="expense">
-                  Expense
-                </option>
-                <option value="income">
-                  Income
-                </option>
+                <option value="expense">Dépense</option>
+                <option value="income">Revenu</option>
               </select>
             </div>
             <button
               type="submit"
               class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
             >
-              Add Category
+              Ajouter
           </button>
           </form>
         </div>
@@ -281,7 +277,7 @@
           <!-- Income Categories -->
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-green-400">
-              Income Categories
+              Catégories de revenus
             </h3>
             <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
               @each(category in categories.filter(c => c.type === 'income'))
@@ -325,7 +321,7 @@
           <!-- Expense Categories -->
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-red-400">
-              Expense Categories
+              Catégories de dépenses
             </h3>
             <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
               @each(category in categories.filter(c => c.type === 'expense'))

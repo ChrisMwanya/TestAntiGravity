@@ -1,4 +1,4 @@
-@layout.app({ title: 'Dashboard' })
+@layout.app({ title: 'Tableau de bord' })
 
   @slot('main')
     <div class="space-y-6">
@@ -9,7 +9,7 @@
           <h1 class="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Welcome back, {{ user.fullName || user.email }}
           </h1>
-          <p class="text-gray-400 mt-2">Here's your financial overview</p>
+          <p class="text-gray-400 mt-2">Voici votre aperçu financier</p>
         </div>
         <a
           href="{{ route('transactions.create') }}"
@@ -18,7 +18,7 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
           </svg>
-          <span>New Transaction</span>
+          <span>Nouvelle transaction</span>
         </a>
       </div>
 
@@ -29,7 +29,7 @@
         <div class="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-xs sm:text-sm">Total Balance</p>
+              <p class="text-gray-400 text-xs sm:text-sm">Solde total</p>
               <h3 class="text-xl sm:text-3xl font-bold mt-2">${{ totalBalance.toFixed(2) }}</h3>
             </div>
             <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/30 rounded-full flex items-center justify-center">
@@ -44,7 +44,7 @@
         <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-xs sm:text-sm">Monthly Income</p>
+              <p class="text-gray-400 text-xs sm:text-sm">Revenus du mois</p>
               <h3 class="text-xl sm:text-3xl font-bold mt-2 text-green-400">${{ income.toFixed(2) }}</h3>
             </div>
             <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/30 rounded-full flex items-center justify-center">
@@ -59,7 +59,7 @@
         <div class="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-xs sm:text-sm">Monthly Expenses</p>
+              <p class="text-gray-400 text-xs sm:text-sm">Dépenses du mois</p>
               <h3 class="text-xl sm:text-3xl font-bold mt-2 text-red-400">${{ expenses.toFixed(2) }}</h3>
             </div>
             <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/30 rounded-full flex items-center justify-center">
@@ -74,7 +74,7 @@
         <div class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-gray-400 text-xs sm:text-sm">Total Investments</p>
+              <p class="text-gray-400 text-xs sm:text-sm">Total investissements</p>
               <h3 class="text-xl sm:text-3xl font-bold mt-2 text-blue-400">${{ totalInvestments.toFixed(2) }}</h3>
             </div>
             <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/30 rounded-full flex items-center justify-center">
@@ -92,9 +92,9 @@
         <!-- I Owe -->
         <a href="/debts" class="bg-gradient-to-br from-red-500/10 to-orange-500/10 backdrop-blur-md border border-red-500/20 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform flex items-center justify-between">
           <div>
-            <p class="text-gray-400 text-xs sm:text-sm">💸 I Owe (Active)</p>
+            <p class="text-gray-400 text-xs sm:text-sm">💸 Ce que je dois (actif)</p>
             <h3 class="text-xl sm:text-2xl font-bold mt-1 text-red-400">${{ totalBorrowed.toFixed(2) }}</h3>
-            <p class="text-xs text-gray-500 mt-0.5">{{ activeDebtsCount }} active debt(s)</p>
+            <p class="text-xs text-gray-500 mt-0.5">{{ activeDebtsCount }} dette(s) active(s)</p>
           </div>
           <svg class="w-8 h-8 text-red-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -104,9 +104,9 @@
         <!-- Owed to Me -->
         <a href="/debts" class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 backdrop-blur-md border border-green-500/20 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform flex items-center justify-between">
           <div>
-            <p class="text-gray-400 text-xs sm:text-sm">🤝 Owed to Me</p>
+            <p class="text-gray-400 text-xs sm:text-sm">🤝 On me doit</p>
             <h3 class="text-xl sm:text-2xl font-bold mt-1 text-green-400">${{ totalLent.toFixed(2) }}</h3>
-            <p class="text-xs text-gray-500 mt-0.5">To collect</p>
+            <p class="text-xs text-gray-500 mt-0.5">À encaisser</p>
           </div>
           <svg class="w-8 h-8 text-green-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/>
@@ -116,9 +116,9 @@
         <!-- Monthly Bills -->
         <a href="/fixed-charges" class="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 backdrop-blur-md border border-orange-500/20 rounded-2xl p-4 sm:p-6 hover:scale-105 transition-transform flex items-center justify-between">
           <div>
-            <p class="text-gray-400 text-xs sm:text-sm">📋 Monthly Bills</p>
+            <p class="text-gray-400 text-xs sm:text-sm">📋 Factures mensuelles</p>
             <h3 class="text-xl sm:text-2xl font-bold mt-1 text-orange-400">${{ monthlyBills.toFixed(2) }}</h3>
-            <p class="text-xs text-gray-500 mt-0.5">{{ upcomingBills.length }} upcoming</p>
+            <p class="text-xs text-gray-500 mt-0.5">{{ upcomingBills.length }} à venir</p>
           </div>
           <svg class="w-8 h-8 text-orange-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -132,8 +132,8 @@
         <!-- Recent Transactions -->
         <div class="lg:col-span-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl sm:text-2xl font-bold">Recent Transactions</h2>
-            <a href="/transactions" class="text-purple-400 hover:text-purple-300 transition text-sm sm:text-base">View All →</a>
+            <h2 class="text-xl sm:text-2xl font-bold">Transactions récentes</h2>
+            <a href="/transactions" class="text-purple-400 hover:text-purple-300 transition text-sm sm:text-base">Voir tout →</a>
           </div>
           <div class="space-y-3 sm:space-y-4">
             @each(transaction in recentTransactions)
@@ -147,7 +147,7 @@
                     @endif
                   </div>
                   <div class="min-w-0">
-                    <p class="font-medium truncate">{{ transaction.category?.name || 'Uncategorized' }}</p>
+                    <p class="font-medium truncate">{{ transaction.category?.name || 'Sans catégorie' }}</p>
                     <p class="text-xs sm:text-sm text-gray-400 truncate">
                       {{ transaction.account.name }} • {{ transaction.date.toFormat('MMM dd, yyyy') }}
                     </p>
@@ -160,7 +160,7 @@
                 </div>
               </div>
             @else
-              <p class="text-gray-400 text-center py-8">No transactions yet</p>
+              <p class="text-gray-400 text-center py-8">Aucune transaction pour le moment</p>
             @endeach
           </div>
         </div>
@@ -168,8 +168,8 @@
         <!-- Accounts Summary -->
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl sm:text-2xl font-bold">Accounts</h2>
-            <a href="/accounts" class="text-purple-400 hover:text-purple-300 transition text-sm">Manage →</a>
+            <h2 class="text-xl sm:text-2xl font-bold">Comptes</h2>
+            <a href="/accounts" class="text-purple-400 hover:text-purple-300 transition text-sm">Gérer →</a>
           </div>
           <div class="space-y-3">
             @each(account in accounts)
@@ -183,7 +183,7 @@
                 </div>
               </div>
             @else
-              <p class="text-gray-400 text-center py-8">No accounts yet</p>
+              <p class="text-gray-400 text-center py-8">Aucun compte pour le moment</p>
             @endeach
           </div>
         </div>
@@ -195,20 +195,20 @@
         <!-- Upcoming Bills -->
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">📋 Upcoming Bills</h2>
-            <a href="/fixed-charges" class="text-orange-400 hover:text-orange-300 transition text-sm">View All →</a>
+            <h2 class="text-xl font-bold">📋 Prochaines factures</h2>
+            <a href="/fixed-charges" class="text-orange-400 hover:text-orange-300 transition text-sm">Voir tout →</a>
           </div>
           <div class="space-y-3">
             @each(bill in upcomingBills)
               <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl hover:bg-white/10 transition">
                 <div class="min-w-0">
                   <p class="font-medium truncate">{{ bill.name }}</p>
-                  <p class="text-xs text-gray-400 capitalize">{{ bill.frequency }} • Due: <span class="text-orange-400">{{ bill.nextDueDate }}</span></p>
+                  <p class="text-xs text-gray-400 capitalize">{{ bill.frequency }} • Échéance : <span class="text-orange-400">{{ bill.nextDueDate }}</span></p>
                 </div>
                 <p class="font-bold text-orange-400 ml-3 flex-shrink-0">${{ Number(bill.amount).toFixed(2) }}</p>
               </div>
             @else
-              <p class="text-gray-400 text-center py-6">No active bills</p>
+              <p class="text-gray-400 text-center py-6">Aucune facture active</p>
             @endeach
           </div>
         </div>
@@ -216,19 +216,19 @@
         <!-- Active Debts Overview -->
         <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6">
           <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">💳 Active Debts</h2>
-            <a href="/debts" class="text-red-400 hover:text-red-300 transition text-sm">View All →</a>
+            <h2 class="text-xl font-bold">💳 Dettes actives</h2>
+            <a href="/debts" class="text-red-400 hover:text-red-300 transition text-sm">Voir tout →</a>
           </div>
           <div class="space-y-3">
             @if(totalBorrowed === 0 && totalLent === 0)
-              <p class="text-gray-400 text-center py-6">No active debts 🎉</p>
+              <p class="text-gray-400 text-center py-6">Aucune dette active 🎉</p>
             @else
               @if(totalBorrowed > 0)
                 <div class="p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
                   <div class="flex justify-between items-center">
                     <div>
-                      <p class="text-sm font-medium text-red-300">I Owe</p>
-                      <p class="text-xs text-gray-400">Outstanding borrowed amount</p>
+                      <p class="text-sm font-medium text-red-300">Je dois</p>
+                      <p class="text-xs text-gray-400">Montant emprunté restant</p>
                     </div>
                     <p class="text-xl font-bold text-red-400">${{ totalBorrowed.toFixed(2) }}</p>
                   </div>
@@ -238,8 +238,8 @@
                 <div class="p-3 bg-green-500/10 border border-green-500/20 rounded-xl">
                   <div class="flex justify-between items-center">
                     <div>
-                      <p class="text-sm font-medium text-green-300">Owed to Me</p>
-                      <p class="text-xs text-gray-400">Outstanding lent amount</p>
+                      <p class="text-sm font-medium text-green-300">On me doit</p>
+                      <p class="text-xs text-gray-400">Montant prêté restant</p>
                     </div>
                     <p class="text-xl font-bold text-green-400">${{ totalLent.toFixed(2) }}</p>
                   </div>
@@ -248,7 +248,7 @@
               <!-- Net position -->
               <div class="p-3 bg-white/5 rounded-xl border border-white/10">
                 <div class="flex justify-between items-center">
-                  <p class="text-sm text-gray-400">Net Position</p>
+                  <p class="text-sm text-gray-400">Position nette</p>
                   @set('net', totalLent - totalBorrowed)
                   <p class="font-bold {{ net >= 0 ? 'text-green-400' : 'text-red-400' }}">
                     {{ net >= 0 ? '+' : '' }}${{ net.toFixed(2) }}

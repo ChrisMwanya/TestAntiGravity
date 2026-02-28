@@ -1,14 +1,14 @@
-@layout.app({ title: 'Manage Categories' })
+@layout.app({ title: 'Catégories' })
 
   @slot('main')
     <div class="space-y-8">
       <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h1 class="text-2xl sm:text-3xl font-bold mb-2">
-            Categories
+            Catégories
           </h1>
           <p class="text-slate-400">
-            Manage your transaction categories
+            Gérez vos catégories de transactions
           </p>
         </div>
       </div>
@@ -16,12 +16,12 @@
       <!-- Create Category Form -->
       <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
         <h2 class="text-xl font-bold mb-4">
-          Add New Category
+          Nouvelle catégorie
         </h2>
         <form action="{{ route('categories.store') }}" method="POST" class="flex flex-col sm:flex-row gap-4 sm:items-end">
           {{ csrfField() }}
           <div class="flex-1">
-            <label class="block text-sm font-medium mb-2">Name</label>
+            <label class="block text-sm font-medium mb-2">Nom</label>
             <input
               type="text"
               name="name"
@@ -39,10 +39,10 @@
               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none [&>option]:bg-slate-900 [&>option]:text-white"
             >
               <option value="expense">
-                Expense
+                Dépense
               </option>
               <option value="income">
-                Income
+                Revenu
               </option>
             </select>
           </div>
@@ -51,7 +51,7 @@
             type="submit"
             class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:from-purple-600 hover:to-pink-600 transition font-medium"
           >
-            Add Category
+            Ajouter
         </button>
         </form>
       </div>
@@ -61,7 +61,7 @@
         <!-- Income Categories -->
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-green-400">
-            Income Categories
+            Catégories de revenus
           </h3>
           <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
             @each(category in categories.filter(c => c.type === 'income'))
@@ -106,7 +106,7 @@
         <!-- Expense Categories -->
         <div class="space-y-4">
           <h3 class="text-xl font-bold text-red-400">
-            Expense Categories
+            Catégories de dépenses
           </h3>
           <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden">
             @each(category in categories.filter(c => c.type === 'expense'))
